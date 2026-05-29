@@ -9,69 +9,50 @@ with open("mo_hinh_gia_nha.pkl", "rb") as f:
 # 2. CẤU HÌNH TRANG WEB
 st.set_page_config(page_title="AI Định Giá Nhà", page_icon="🏠")
 
-# --- ĐOẠN CODE TRANG TRÍ VÀ FIX LỖI MÀU Ô NHẬP LIỆU ---
+# --- ĐOẠN CODE ĐỔI MÀU NỀN VÀ TRANG TRÍ ---
 st.markdown("""
     <style>
-    /* Đổi nền của toàn bộ ứng dụng thành màu xanh dương nhạt */
+    /* Đổi nền của toàn bộ ứng dụng thành xanh dương nhạt */
     .stApp {
         background-color: #E3F2FD;
     }
     
-    /* KHUNG TIÊU ĐỀ XANH DƯƠNG (Giữ nguyên phom chuẩn của bạn ở ảnh c95fc0) */
+    /* Làm cho các ô nhập liệu nổi bật trên nền xanh */
+    .stNumberInput {
+        background-color: white;
+        border-radius: 10px;
+    }
+    
+    /* TẠO KHUNG CHO TIÊU ĐỀ (Xanh dương đậm hơn một chút, bo góc đẹp mắt) */
     .header-box {
-        background-color: #BBDEFB;
+        background-color: #BBDEFB; /* Màu xanh dương đậm hơn màu nền */
         padding: 20px;
         border-radius: 15px;
         border: 2px solid #90CAF9;
         text-align: center;
         margin-bottom: 25px;
     }
-    .header-box h1 {
-        margin: 0; 
-        color: #0D47A1;
-    }
-    .header-box p {
-        margin: 5px 0 0 0; 
-        color: #1565C0; 
-        font-style: italic;
-    }
-
-    /* FIX LỖI: Ép các ô nhập liệu luôn luôn có nền trắng, chữ đen rõ ràng, không bị hóa đen */
-    .stNumberInput div[data-baseweb="input"] {
-        background-color: white !important;
-        border-radius: 10px;
-        border: 1px solid #90CAF9 !important;
-    }
-    .stNumberInput input {
-        color: black !important;
-        -webkit-text-fill-color: black !important; /* Đảm bảo hiện chữ đen trên một số trình duyệt */
-    }
     
-    /* Ép chữ nhãn (Label) phía trên các ô nhập số phải là màu tối để nhìn rõ trên nền xanh nhạt */
-    .stNumberInput label p {
-        color: #0D47A1 !important;
-        font-weight: bold;
-    }
-    
-    /* ĐỔI MÀU NÚT BẤM THÀNH MÀU ĐỎ TRẦM */
+    /* ĐỔI MÀU NÚT BẤM THÀNH MÀU ĐỎ TRẦM (Màu Đỏ Đô/Crimson) */
     div.stButton > button:first-child {
-        background-color: #A31D1D !important;
+        background-color: #A31D1D !important; /* Màu đỏ trầm */
         color: white !important;
         border: none !important;
         font-weight: bold !important;
         transition: 0.3s;
     }
+    /* Hiệu ứng khi di chuột vào nút bấm sẽ đậm lên một tí */
     div.stButton > button:first-child:hover {
         background-color: #6D0B0B !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 3. HIỂN THỊ TIÊU ĐỀ TRONG KHUNG
+# 3. TIÊU ĐỀ (Được bọc trong khung màu xanh dương đậm hơn)
 st.markdown("""
     <div class="header-box">
-        <h1>🏠 Hệ Thống Định Giá Nhà Tự Động</h1>
-        <p>Nhập thông số bên dưới để AI dự đoán giá nhà ngay lập tức.</p>
+        <h1 style='margin:0; color:#0D47A1;'>🏠 Hệ Thống Định Giá Nhà Tự Động</h1>
+        <p style='margin:5px 0 0 0; color:#1565C0; font-style: italic;'>Nhập thông số bên dưới để AI dự đoán giá nhà ngay lập tức.</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -83,14 +64,16 @@ with col1:
     phong_ngu = st.number_input("🛏️ Số phòng ngủ:", min_value=1, max_value=10, value=1, step=1)
 
 with col2:
+    # Đã sửa từ 0,1 thành 0.1 để tránh lỗi Python bạn nhé!
     khoang_cach = st.number_input("📍 Khoảng cách trung tâm (km):", min_value=1.0, max_value=50.0, value=1.0, step=0.1)
     phong_tam = st.number_input("🚿 Số phòng tắm:", min_value=1, max_value=5, value=1, step=1)
 
 # 5. NÚT BẤM VÀ HIỆU ỨNG
-st.write("---") 
+st.write("---") # Dòng kẻ ngang cho đẹp
 if st.button("💰 TÍNH GIÁ NHÀ NGAY", type="primary", use_container_width=True):
     with st.spinner('AI đang phân tích thị trường...'):
         thong_so = [[dien_tich, phong_ngu, phong_tam, khoang_cach]]
         gia_du_doan = max(0, model.predict(thong_so)[0])
         
-    st.success(f"###
+    st.success(f"### 🏠 Giá nhà dự đoán: **{gia_du_doan:.2f}** (triệu đồng)")
+    st.balloons()
