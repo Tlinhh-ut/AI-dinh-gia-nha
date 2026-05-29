@@ -11,7 +11,7 @@ st.set_page_config(page_title="AI Định Giá Nhà", page_icon="🏠")
 st.title("🏠 Hệ Thống Định Giá Nhà Tự Động")
 st.write("Nhập thông số bên dưới để AI dự đoán giá nhà ngay lập tức.")
 
-# 3. Ô NHẬP SỐ CÓ THÊM BƯỚC NHẢY (STEP)
+# 3. Ô NHẬP 
 dien_tich = st.number_input("📐 Diện tích (m²):", min_value=30, max_value=500, value=100, step=5)
 khoang_cach = st.number_input("📍 Khoảng cách đến trung tâm (km):", min_value=1, max_value=50, value=5, step=1)
 phong_ngu = st.number_input("🛏️ Số phòng ngủ:", min_value=1, max_value=10, value=3, step=1)
