@@ -17,23 +17,29 @@ st.markdown("""
         background-color: #E3F2FD;
     }
     
-    /* FIX LỖI RỚT CHỮ: Nhắm chính xác vào thẻ chứa ô nhập để bo góc và đổ nền trắng */
+    /* FIX LỖI Ô NHẬP LIỆU */
     .stNumberInput div[data-baseweb="input"] {
         background-color: white !important;
         border-radius: 10px;
         border: 1px solid #90CAF9 !important;
     }
     
-    /* Ép chữ bên trong ô luôn là màu đen, không bị ảnh hưởng bởi giao diện tối/sáng */
+    /* Ép chữ bên trong ô luôn là màu đen */
     .stNumberInput input {
         color: black !important;
         -webkit-text-fill-color: black !important;
     }
     
-    /* Định dạng chữ nhãn (Label) phía trên ô nhập số rõ ràng, không bị chìm chữ */
+    /* FIX LỖI RỚT CHỮ NHÃN (LABEL): Ép chữ và icon nằm chung một dòng, chữ màu xanh đậm rõ ràng */
+    .stNumberInput label {
+        display: inline-block !important;
+        max-width: 100% !important;
+    }
     .stNumberInput label p {
         color: #0D47A1 !important;
-        font-weight: bold;
+        font-weight: bold !important;
+        display: inline !important;
+        white-space: nowrap !important; /* Không cho phép tự ý xuống dòng */
     }
     
     /* TẠO KHUNG CHO TIÊU ĐỀ (Giữ nguyên phom 25px, bo góc 20px của bạn) */
