@@ -26,8 +26,8 @@ st.markdown("""
     /* TẠO KHUNG CHO TIÊU ĐỀ (Xanh dương đậm hơn một chút, bo góc đẹp mắt) */
     .header-box {
         background-color: #BBDEFB; /* Màu xanh dương đậm hơn màu nền */
-        padding: 20px;
-        border-radius: 15px;
+        padding: 25px;
+        border-radius: 20px;
         border: 2px solid #90CAF9;
         text-align: center;
         margin-bottom: 25px;
