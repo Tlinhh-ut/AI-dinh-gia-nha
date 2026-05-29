@@ -9,7 +9,7 @@ with open("mo_hinh_gia_nha.pkl", "rb") as f:
 # 2. CẤU HÌNH TRANG WEB
 st.set_page_config(page_title="AI Định Giá Nhà", page_icon="🏠")
 
-# --- ĐOẠN CODE ĐỔI MÀU NỀN VÀ TRANG TRÍ ---
+# --- ĐOẠN CODE ĐỔI MÀU NỀN VÀ TRANG TRÍ CHUẨN KHÔNG LỖI VIỀN ---
 st.markdown("""
     <style>
     /* Đổi nền của toàn bộ ứng dụng thành xanh dương nhạt */
@@ -17,13 +17,26 @@ st.markdown("""
         background-color: #E3F2FD;
     }
     
-    /* Làm cho các ô nhập liệu nổi bật trên nền xanh */
-    .stNumberInput {
-        background-color: white;
+    /* FIX LỖI RỚT CHỮ: Nhắm chính xác vào thẻ chứa ô nhập để bo góc và đổ nền trắng */
+    .stNumberInput div[data-baseweb="input"] {
+        background-color: white !important;
         border-radius: 10px;
+        border: 1px solid #90CAF9 !important;
     }
     
-    /* TẠO KHUNG CHO TIÊU ĐỀ (Xanh dương đậm hơn một chút, bo góc đẹp mắt) */
+    /* Ép chữ bên trong ô luôn là màu đen, không bị ảnh hưởng bởi giao diện tối/sáng */
+    .stNumberInput input {
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+    }
+    
+    /* Định dạng chữ nhãn (Label) phía trên ô nhập số rõ ràng, không bị chìm chữ */
+    .stNumberInput label p {
+        color: #0D47A1 !important;
+        font-weight: bold;
+    }
+    
+    /* TẠO KHUNG CHO TIÊU ĐỀ (Giữ nguyên phom 25px, bo góc 20px của bạn) */
     .header-box {
         background-color: #BBDEFB; /* Màu xanh dương đậm hơn màu nền */
         padding: 25px;
@@ -48,7 +61,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. TIÊU ĐỀ (Được bọc trong khung màu xanh dương đậm hơn)
+# 3. TIÊU ĐỀ (Giữ nguyên khung màu xanh dương đậm hơn)
 st.markdown("""
     <div class="header-box">
         <h1 style='margin:0; color:#0D47A1;'>🏠 Hệ Thống Định Giá Nhà Tự Động</h1>
@@ -64,7 +77,6 @@ with col1:
     phong_ngu = st.number_input("🛏️ Số phòng ngủ:", min_value=1, max_value=10, value=1, step=1)
 
 with col2:
-    # Đã sửa từ 0,1 thành 0.1 để tránh lỗi Python bạn nhé!
     khoang_cach = st.number_input("📍 Khoảng cách trung tâm (km):", min_value=1.0, max_value=50.0, value=1.0, step=0.1)
     phong_tam = st.number_input("🚿 Số phòng tắm:", min_value=1, max_value=5, value=1, step=1)
 
